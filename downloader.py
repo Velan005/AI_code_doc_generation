@@ -43,23 +43,3 @@ def save_file(content, file_name, file_type):
             file_name=file_name,
             mime=mime_type
         )
-
-# Streamlit UI
-st.title("🔹 Code & Documentation Downloader")
-
-# Choose file type: Code or Documentation
-file_category = st.radio("📂 Select file type:", ["Code", "Documentation"])
-
-# Input text area
-content = st.text_area("📝 Enter your content here:", "print('Hello, World!')")
-
-if file_category == "Code":
-    file_extension = st.selectbox("🛠 Select code format:", ["py", "java", "cpp", "c", "js", "html", "css"])
-    file_name = f"generated_code.{file_extension}"
-else:
-    file_extension = st.selectbox("📄 Select document format:", ["txt", "md", "pdf"])
-    file_name = f"documentation.{file_extension}"
-
-# Button to save and download file
-if st.button("💾 Save & Download"):
-    save_file(content, file_name, file_extension)
