@@ -1,6 +1,9 @@
 import streamlit as st
+from new_file.part3 import chain
+import prompt
+from new_file.part3 import vectordb
 from downloader import save_file  # Import the save_file function from downloader.py
-
+vectordatabase = vectordb.initialize_chroma()
 # Set the page configuration
 st.set_page_config(page_title="AI Powered Documentation Generator", page_icon=":book:", layout="wide")
 
@@ -81,9 +84,13 @@ with col2:
     # Submit Button Logic
     if st.button("Submit"):
         if uploaded_file is None:
+
             st.error("File not uploaded")  # Show error if no file is uploaded
         else:
             if generate_doc:
                 st.success("Function to generate overall document called.")  # Placeholder
+                respose = chain.generate_code_rag_chain(language, "Generate overall document",vectordatabase)
             else:
                 st.success("Function for other task called.")  # Placeholder
+                respose = chain.generate_code_chain(language, "Other task")
+            vectordb.store_pdf_in_chroma(uploaded_file, vectordatabase)
