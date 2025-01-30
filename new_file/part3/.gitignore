@@ -1,0 +1,4 @@
+.env
+new_env
+_pycache_
+chroma_db
